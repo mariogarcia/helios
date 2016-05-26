@@ -66,4 +66,12 @@ class HeliosSpecProperties {
             }
         }
     }
+
+    static void checkLoanResult(ValidatorResult<Loan> result) {
+        if (result.hasErrors()) {
+            assert result.errors.any { ValidatorError<Loan> error ->
+                error.key in ['error.loan.amount','error.loan.name']
+            }
+        }
+    }
 }

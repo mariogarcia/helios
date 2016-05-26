@@ -1,5 +1,7 @@
 package helios;
 
+import java.util.List;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -28,6 +30,21 @@ public class Helios {
      * @since 0.1.0
      */
     public static final <T> ValidatorResult<T> validate(final T subject, final Validator<T>... validators) {
+        return validate(subject, Arrays.asList(validators));
+    }
+
+    /**
+     * Validates a given object using a list of validators. Those
+     * validators will be composed. The {@link ValidatorResult} will
+     * contain errors if any of the validators fails.
+     *
+     * @param subject The value to validate
+     * @param validators list of {@link Validator} suitable for the
+     * type of the value to validate
+     * @return a {@link ValidatorResult}
+     * @since 0.1.0
+     */
+    public static final <T> ValidatorResult<T> validate(final T subject, final List<Validator<T>> validators) {
         return Helios.compose(validators).orElseGet(Validator::supplyDefault).validate(subject);
     }
 
@@ -65,11 +82,29 @@ public class Helios {
      * @since 0.1.0
      */
     public static final <T> Optional<Validator<T>> compose(final Validator<T>... validators) {
-        return Stream.of(validators)
-            .map(Optional::ofNullable)
-            .filter(Optional::isPresent)
-            .map(Optional::get)
-            .reduce(Helios::compose);
+        return compose(Arrays.asList(validators));
+    }
+
+    /**
+     * This function composes all validators passed as argument and
+     * returns an {@link Optional} value of the resulting {@link
+     * Validator} instance (if any).
+     * </br>
+     * If the {@link Validator} instance is present, then the resulting
+     * validator will succeed if all inner validators pass.
+     *
+     * @param validators a {@link List} containing possible validator
+     * instances
+     * @return an instance of {@link Optional} with a possible {@link Validator}
+     * instance.
+     * @since 0.1.0
+     */
+    public static final <T> Optional<Validator<T>> compose(final List<Validator<T>> validators) {
+        return filterNull(validators).map(Optional::get).reduce(Helios::compose);
+    }
+
+    private static <T> Stream<Optional<T>> filterNull(final List<T> elements) {
+        return elements.stream().map(Optional::ofNullable).filter(Optional::isPresent);
     }
 
     /**
