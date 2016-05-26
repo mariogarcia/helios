@@ -9,7 +9,7 @@ import helios.HeliosSpecProperties as PROPERTY
 import helios.HeliosSpecValidators as VALIDATOR
 
 @CompileStatic
-class Utils {
+class HeliosSpecGenerators {
 
     static Generator<String> getEmailGenerator() {
         return Gen.string(3,9)

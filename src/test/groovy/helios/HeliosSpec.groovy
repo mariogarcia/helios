@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 import helios.HeliosSpecProperties as PROPERTY
 import helios.HeliosSpecValidators as VALIDATOR
-import helios.Utils as GENERATOR
+import helios.HeliosSpecGenerators as GENERATOR
 
 class HeliosSpec extends Specification {
 
