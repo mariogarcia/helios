@@ -32,14 +32,15 @@ class HeliosSpec extends Specification {
         when: 'validating with several validators at once'
         List<ValidatorError<PROPERTY.Loan>> result =
             Helios.validate("loan", loanSample, [
-                { PROPERTY.Loan loan -> validate("name", loan.name, stringValidators) },
+                { PROPERTY.Loan loan -> validate("id", loan.id, required()) },
+                { PROPERTY.Loan loan -> validate("name", loan.name, validators) },
                 { PROPERTY.Loan loan -> validate("amount", loan.amount, required(), min(10)) }] as Validator[])
 
         then: 'result should reflect properties'
         PROPERTY.checkLoanResult result
 
-        where: 'possible loan samples and stringValidators are'
+        where: 'possible loan samples and validators are'
         loanSample << GENERATOR.getLoanGenerator().take(100)
-        stringValidators << GENERATOR.validatorList().take(100)
+        validators << GENERATOR.validatorList().take(100)
     }
 }

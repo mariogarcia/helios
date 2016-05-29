@@ -18,7 +18,12 @@ class HeliosSpecGenerators {
     }
 
     static Generator<PROPERTY.Loan> getLoanGenerator() {
-        return Gen.type([name: Gen.any(null, '', 'somethingelse'), amount: Gen.getDouble()] as Map, PROPERTY.Loan)
+        def loan = [
+            id: Gen.any(1L, null),
+            name: Gen.any(null, '', 'somethingelse'),
+            amount: Gen.any(null, 0).then(Gen.getDouble())] as Map<String,?>
+
+        return Gen.type(loan, PROPERTY.Loan)
     }
 
     static Generator<Validator<PROPERTY.Loan>> stringValidators() {
