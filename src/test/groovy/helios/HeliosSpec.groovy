@@ -34,7 +34,7 @@ class HeliosSpec extends Specification {
             Helios.validate("loan", loanSample, [
                 { PROPERTY.Loan loan -> validate("id", loan.id, required()) },
                 { PROPERTY.Loan loan -> validate("name", loan.name, validators) },
-                { PROPERTY.Loan loan -> validate("amount", loan.amount, required(), min(10)) }] as Validator[])
+                { PROPERTY.Loan loan -> validate("amount", loan.amount, required(), min(10), min(null)) }] as Validator[])
 
         then: 'result should reflect properties'
         PROPERTY.checkLoanResult result
