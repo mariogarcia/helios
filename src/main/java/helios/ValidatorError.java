@@ -66,8 +66,8 @@ public class ValidatorError<T> {
     }
 
     /**
-     * Creates a new instance of a {@link ValidatorError} for a given value
-     * an identified with a given error key.
+     * Creates a new instance of a {@link ValidatorError} for a given
+     * value an identified with a given error key.
      *
      * @param value the value that produced the error
      * @param errorKey the error id

@@ -8,6 +8,7 @@ import spock.lang.Specification
 
 import helios.HeliosSpecProperties as PROPERTY
 import helios.HeliosSpecGenerators as GENERATOR
+import helios.CommonProperties as PROPERTY_COMMON
 
 class HeliosSpec extends Specification {
 
@@ -16,15 +17,7 @@ class HeliosSpec extends Specification {
         Class<Helios> heliosClass = Helios
 
         expect: 'constructor to be one'
-        PROPERTY.classHasNoPublicConstructor heliosClass
-    }
-
-    void 'check Validators final class'() {
-        given: 'an Validators class'
-        Class<Validators> validatorsClass = Validators
-
-        expect: 'constructor to be one'
-        PROPERTY.classHasNoPublicConstructor validatorsClass
+        PROPERTY_COMMON.classHasNoPublicConstructor heliosClass
     }
 
     void 'check composed validator from varargs'() {

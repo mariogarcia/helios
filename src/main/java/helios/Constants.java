@@ -8,6 +8,8 @@ package helios;
  */
 public class Constants {
 
+    private Constants() { }
+
     /**
      * Blank space
      *

@@ -21,9 +21,9 @@ public class Validators {
     private Validators() { }
 
     /**
-     * Validator to make sure a given value is present (is not null). If
-     * the value is not present, then a {@link ValidatorError} will be
-     * returned.
+     * Validator to make sure a given value is present (is not
+     * null). If the value is not present, then a {@link
+     * ValidatorError} will be returned.
      *
      * @return a {@link Validator} to make sure a given value is
      * present
