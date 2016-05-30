@@ -1,5 +1,7 @@
 package helios;
 
+import static helios.Constants.BLANK;
+
 /**
  * Represents a validator error. It gathers information related to the
  * error raised: value, error key, and a property.
@@ -47,11 +49,11 @@ public class ValidatorError<T> {
     /**
      * A {@link ValidatorError} is an immutable object. It can only be
      * created once.  The only reason we could think of mutating a
-     * given {@link ValidationError} is to complete the property path.
+     * given {@link ValidatorError} is to complete the property path.
      *
      * This method has been created for that purpose. It respects the
      * idea of having an immutable object. That's why it creates a new
-     * {@link ValidationError} with the same values that the current
+     * {@link ValidatorError} with the same values that the current
      * one but with different property value.
      *
      * @param newProperty the property of the new instance
@@ -61,5 +63,17 @@ public class ValidatorError<T> {
      */
     public ValidatorError<T> copyWithProperty(final String newProperty) {
         return new ValidatorError<T>(value, "" + newProperty + "." + property, key);
+    }
+
+    /**
+     * Creates a new instance of a {@link ValidatorError} for a given value
+     * an identified with a given error key.
+     *
+     * @param value the value that produced the error
+     * @param errorKey the error id
+     * @return an instance of {@link ValidatorError}
+     */
+    public static <T> ValidatorError<T> error(T value, String errorKey) {
+        return new ValidatorError<T>(value, BLANK, errorKey);
     }
 }

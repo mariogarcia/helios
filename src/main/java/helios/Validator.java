@@ -17,8 +17,7 @@ public interface Validator<T> {
      * contain errors.
      *
      * @param subject the value validated
-     * @return an instance of type {@link ValidatorResult} containing
-     * the result of the validation
+     * @return a list of possible {@link ValidatorError} instances
      * @since 0.1.0
      */
     List<ValidatorError<T>> validate(T subject);

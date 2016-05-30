@@ -7,7 +7,6 @@ import static helios.Validators.required;
 import spock.lang.Specification
 
 import helios.HeliosSpecProperties as PROPERTY
-import helios.HeliosSpecValidators as VALIDATOR
 import helios.HeliosSpecGenerators as GENERATOR
 
 class HeliosSpec extends Specification {
@@ -32,7 +31,7 @@ class HeliosSpec extends Specification {
         when: 'validating with several validators at once'
         List<ValidatorError<PROPERTY.Loan>> result =
             Helios.validate("loan", loanSample, [
-                { PROPERTY.Loan loan -> validate("id", loan.id, required()) },
+                { validate("id", it.id, required(), min(0)) },
                 { PROPERTY.Loan loan -> validate("name", loan.name, validators) },
                 { PROPERTY.Loan loan -> validate("amount", loan.amount, required(), min(10), min(null)) }] as Validator[])
 
