@@ -34,7 +34,7 @@ public class ValidatorsUtil {
      * @return a list of {@link ValidatorError} elements.
      * @since 0.1.0
      */
-    public static <T> List<ValidatorError<T>> safe(T value, Predicate<T> cond, ValidatorError<T> error) {
+    public static <T> List<ValidatorError> safe(T value, Predicate<T> cond, ValidatorError error) {
         return Optional
             .ofNullable(value)
             .filter(cond)
@@ -56,7 +56,7 @@ public class ValidatorsUtil {
      * @return a list of {@link ValidatorError} elements.
      * @since 0.1.0
      */
-    public static <T> List<ValidatorError<T>> unsafe(T value, Predicate<T> cond, ValidatorError<T> error) {
+    public static <T> List<ValidatorError> unsafe(T value, Predicate<T> cond, ValidatorError error) {
         return cond.test(value) ? asList(error) : emptyList();
     }
 

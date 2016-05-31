@@ -6,17 +6,16 @@ import static helios.Constants.BLANK;
  * Represents a validator error. It gathers information related to the
  * error raised: value, error key, and a property.
  *
- * @param T the value type that raised the error
  * @since 0.1.0
  */
-public class ValidatorError<T> {
+public class ValidatorError {
 
     /**
      * Represents the value raising the error
      *
      * @since 0.1.0
      */
-    public final T value;
+    public final Object value;
 
     /**
      * The key that represents the error
@@ -40,7 +39,7 @@ public class ValidatorError<T> {
      * @param key the key error. It can be used to translate the error
      * @since 0.1.0
      */
-    public ValidatorError(final T value, final String property, final String key) {
+    public ValidatorError(final Object value, final String property, final String key) {
         this.value = value;
         this.property = property;
         this.key = key;
@@ -61,8 +60,8 @@ public class ValidatorError<T> {
      * but with different property
      * @since 0.1.0
      */
-    public ValidatorError<T> copyWithProperty(final String newProperty) {
-        return new ValidatorError<T>(value, "" + newProperty + "." + property, key);
+    public ValidatorError copyWithProperty(final String newProperty) {
+        return new ValidatorError(value, "" + newProperty + "." + property, key);
     }
 
     /**
@@ -73,7 +72,7 @@ public class ValidatorError<T> {
      * @param errorKey the error id
      * @return an instance of {@link ValidatorError}
      */
-    public static <T> ValidatorError<T> error(T value, String errorKey) {
-        return new ValidatorError<T>(value, BLANK, errorKey);
+    public static <T> ValidatorError error(Object value, String errorKey) {
+        return new ValidatorError(value, BLANK, errorKey);
     }
 }

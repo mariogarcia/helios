@@ -20,5 +20,5 @@ public interface Validator<T> {
      * @return a list of possible {@link ValidatorError} instances
      * @since 0.1.0
      */
-    List<ValidatorError<T>> validate(T subject);
+    List<ValidatorError> validate(T subject);
 }

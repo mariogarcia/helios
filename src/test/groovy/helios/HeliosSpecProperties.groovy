@@ -13,7 +13,7 @@ class HeliosSpecProperties {
         Double amount
     }
 
-    static void checkLoanResult(List<ValidatorError<Loan>> result) {
+    static void checkLoanResult(List<ValidatorError> result) {
         if (result.size() > 0) {
             assert result.any { ValidatorError<Loan> error ->
                 error.key in ['required', 'min.notmet', 'string.min.notmet'] &&
