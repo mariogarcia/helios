@@ -35,4 +35,20 @@ class HeliosSpec extends Specification {
         loanSample << GENERATOR.getLoanGenerator().take(100)
         validators << GENERATOR.validatorList().take(100)
     }
+
+    void 'check error property when validator forgot to declare it'() {
+        when: 'validating with several validators at once'
+        List<ValidatorError<PROPERTY.Loan>> result =
+            Helios.validate("loan", loanSample, [
+                { PROPERTY.Loan loan -> validate(null, loan.name, validators) },
+                { PROPERTY.Loan loan -> validate("amount", loan.amount, required(), min(10), min(null)) }] as Validator[])
+
+        then: 'result should reflect properties'
+        PROPERTY.checkErrorPropertyField result
+
+        where: 'possible loan samples and validators are'
+        loanSample << GENERATOR.getLoanGenerator().take(100)
+        validators << GENERATOR.validatorList().take(100)
+
+    }
 }

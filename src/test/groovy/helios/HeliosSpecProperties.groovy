@@ -13,14 +13,20 @@ class HeliosSpecProperties {
         Double amount
     }
 
-    static void checkLoanResult(List<ValidatorError> result) {
-        if (result.size() > 0) {
-            assert result.any { ValidatorError<Loan> error ->
+    static void checkLoanResult(final List<ValidatorError> result) {
+        if (!result.isEmpty()) {
+            assert result.any { ValidatorError error ->
                 error.key in ['required', 'min.notmet', 'string.min.notmet'] &&
                 error.property.startsWith('loan.')
             }
-        } else {
-            assert result.size() == 0
+        }
+    }
+
+    static void checkErrorPropertyField(final List<ValidatorError> result) {
+        if (!result.isEmpty()) {
+            assert result.any { ValidatorError error ->
+                error.property in ["loan.amount", "loan"]
+            }
         }
     }
 }

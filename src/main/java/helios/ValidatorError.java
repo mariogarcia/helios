@@ -2,6 +2,9 @@ package helios;
 
 import static helios.Constants.BLANK;
 
+import java.util.stream.Collectors;
+import java.util.Arrays;
+
 /**
  * Represents a validator error. It gathers information related to the
  * error raised: value, error key, and a property.
@@ -61,7 +64,13 @@ public class ValidatorError {
      * @since 0.1.0
      */
     public ValidatorError copyWithProperty(final String newProperty) {
-        return new ValidatorError(value, "" + newProperty + "." + property, key);
+        String path = Arrays.asList(newProperty, property)
+            .stream()
+            .filter(Constants::FN_IS_NOT_NULL)
+            .filter(Constants::FN_IS_NOT_BLANK)
+            .collect(Collectors.joining(Constants.POINT));
+
+        return new ValidatorError(value, path, key);
     }
 
     /**
@@ -71,8 +80,25 @@ public class ValidatorError {
      * @param value the value that produced the error
      * @param errorKey the error id
      * @return an instance of {@link ValidatorError}
+     * @since 0.1.0
      */
     public static <T> ValidatorError error(Object value, String errorKey) {
         return new ValidatorError(value, BLANK, errorKey);
+    }
+
+    /**
+     * Shows the most relevant information of the error when
+     * it's printed out
+     *
+     * @since 0.1.0
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder("ValidatorError(")
+            .append(property)
+            .append(",")
+            .append(key)
+            .append(")")
+            .toString();
     }
 }
