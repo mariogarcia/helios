@@ -3,6 +3,9 @@ package helios
 import spock.genesis.Gen
 import spock.genesis.generators.Generator
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 class ValidatorErrorSpecGenerators {
 
     static Generator<ValidatorError> getErrorGenerator() {
