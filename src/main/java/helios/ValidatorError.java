@@ -82,7 +82,7 @@ public class ValidatorError {
      * @return an instance of {@link ValidatorError}
      * @since 0.1.0
      */
-    public static <T> ValidatorError error(Object value, String errorKey) {
+    public static ValidatorError error(Object value, String errorKey) {
         return new ValidatorError(value, BLANK, errorKey);
     }
 

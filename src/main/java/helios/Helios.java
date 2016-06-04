@@ -30,6 +30,7 @@ public class Helios {
      * @return a list of possible {@link ValidatorError} instances
      * @since 0.1.0
      */
+    @SafeVarargs
     public static final <T> List<ValidatorError> validate(final String id, final T subject, final Validator<T>... validators) {
         return validate(id, subject, Arrays.asList(validators));
     }
