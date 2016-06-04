@@ -3,6 +3,7 @@ package helios.samples.jdk;
 import static helios.Helios.validate;
 
 import static helios.Validators.min;
+import static helios.Validators.minOfString;
 import static helios.Validators.required;
 
 import static org.junit.Assert.assertEquals;
@@ -29,13 +30,20 @@ public class SimplePropertiesTest {
     public static List<ValidatorError> validateLoan(final Loan loanToValidate) {
         return validate("loan", loanToValidate,
             (Loan loan) -> validate("id", loan.id, required(), min(0)),
-            (Loan loan) -> validate("name", loan.name, required()),
+            (Loan loan) -> validate("name", loan.name, required(), minOfString(4)),
             (Loan loan) -> validate("amount", loan.amount, required()));
     }
 
     @Test
     public void testInvalidLoanId() {
-        Loan loan = new Loan(1L, "car loan", 12000.0);
+        Loan loan = new Loan(-1L, "car loan", 12000.0);
+
+        assertEquals(validateLoan(loan).size(), 1);
+    }
+
+    @Test
+    public void testInvalidLoanName() {
+        Loan loan = new Loan(1L, "car", 12000.0);
 
         assertEquals(validateLoan(loan).size(), 1);
     }

@@ -21,9 +21,7 @@ public class Validators {
     private Validators() { }
 
     /**
-     * Validator to make sure a given value is present (is not
-     * null). If the value is not present, then a {@link
-     * ValidatorError} will be returned.
+     * Checks that a given value is present (is not null).
      *
      * @return a {@link Validator} to make sure a given value is
      * present
@@ -34,29 +32,41 @@ public class Validators {
     }
 
     /**
-     * Validator that checks whether a given {@link String} has less
-     * characters than the number passed as parameter.
-     *
-     * @param n min number of characters that the string should have
-     * @return a {@link Validator}
-     * @since 0.1.0
-     */
-    public static Validator<String> stringSize(final int n) {
-        return (String opt) -> safe(opt, x -> x.length() < n, error(opt, "string.min.notmet"));
-    }
-
-    /**
-     * Validator that checks whether a given {@link Number} is less
-     * than the number passed as parameter.
+     * Checks that a given {@link Number} is less than the number
+     * passed as parameter.
      *
      * @param number to check against
      * @return a {@link Validator} instance
      * @since 0.1.0
      */
     public static <T extends Number> Validator<T> min(final T number) {
-        final BiPredicate<T,T> pred = (x,y) -> x.doubleValue() < y.doubleValue();
+        final BiPredicate<T,T> pred = (x,y) -> x.doubleValue() > y.doubleValue();
         final Predicate<T> safePred = safeCurry(number, pred);
 
         return (T opt) -> safe(opt, safePred, error(opt, "min.notmet"));
+    }
+
+    /**
+     * Checks that a given {@link List} has a minimum number of
+     * elements
+     *
+     * @param n min number of elements the list should have
+     * @return a {@link Validator}
+     * @since 0.1.0
+     */
+    public static Validator<List<?>> minOfList(final int n) {
+        return (List<?> list) -> safe(list, x -> x.size() < n, error(list, "list.min.notmet"));
+    }
+
+    /**
+     * Checks that a given {@link String} has at least a given number
+     * of characters.
+     *
+     * @param n min number of characters that the string should have
+     * @return a {@link Validator}
+     * @since 0.1.0
+     */
+    public static Validator<String> minOfString(final int n) {
+        return (String opt) -> safe(opt, x -> x.length() < n, error(opt, "string.min.notmet"));
     }
 }

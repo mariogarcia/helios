@@ -1,7 +1,7 @@
 package helios
 
 import static helios.Validators.required
-import static helios.Validators.stringSize
+import static helios.Validators.minOfString
 
 import groovy.transform.CompileStatic
 
@@ -23,7 +23,7 @@ class HeliosSpecGenerators {
     }
 
     static Generator<Validator<PROPERTY.Loan>> stringValidators() {
-        return Gen.any(required(), stringSize(10), null)
+        return Gen.any(required(), minOfString(10), null)
     }
 
     static Generator<List<Validator<PROPERTY.Loan>>> validatorList() {
