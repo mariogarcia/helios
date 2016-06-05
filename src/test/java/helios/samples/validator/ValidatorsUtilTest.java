@@ -16,7 +16,7 @@ public class ValidatorsUtilTest {
 
     @Test public void testValidatorShortcut() {
         List<ValidatorError> errors =
-            Helios.validate("number", "y",  customValidator());
+            Helios.validate("symbol", "y",  customValidator());
 
         assertEquals(errors.get(0).key, "isnot.x");
     }

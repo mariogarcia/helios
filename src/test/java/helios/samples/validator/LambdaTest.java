@@ -3,9 +3,9 @@ package helios.samples.validator;
 import static org.junit.Assert.assertEquals;
 
 import static helios.ValidatorError.error;
+import static helios.ValidatorError.errors;
 
 import java.util.List;
-import java.util.Arrays;
 import org.junit.Test;
 
 import helios.Validator;
@@ -17,9 +17,9 @@ public class LambdaTest {
         // tag::testLambda[]
         Validator<String> validator = (String s) -> {
             if (s.equals("x")) {
-                return Arrays.asList(error(s, "not.x"));
+                return errors(error(s, "not.x"));
             }
-            return Arrays.asList();
+            return errors();
         };
         // end::testLambda[]
 

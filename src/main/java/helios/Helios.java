@@ -53,8 +53,12 @@ import java.util.function.Supplier;
  * include::src/test/java/helios/samples/HeliosTest.java[tags=uselambda]
  * ----
  *
- * IMPORTANT: Check out how {@link ValidatorsUtil#validator} creates
- * safer validators using plain lambda expressions.
+ * NOTE: We're using {@link ValidatorError#errors} and {@link
+ * ValidatorError#error} to create a list of {@link ValidatorError}
+ * instances
+ *
+ * NOTE: Check out how {@link ValidatorsUtil#validator} creates safer
+ * validators using plain lambda expressions.
  *
  * == Nesting validations
  *

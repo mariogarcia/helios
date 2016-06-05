@@ -2,8 +2,9 @@ package helios;
 
 import static helios.Constants.BLANK;
 
-import java.util.stream.Collectors;
+import java.util.List;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Represents a validator error. It gathers information related to the
@@ -82,8 +83,20 @@ public class ValidatorError {
      * @return an instance of {@link ValidatorError}
      * @since 0.1.0
      */
-    public static ValidatorError error(Object value, String errorKey) {
+    public static ValidatorError error(final Object value, final String errorKey) {
         return new ValidatorError(value, BLANK, errorKey);
+    }
+
+    /**
+     * This is a utility method to easily build a {@link
+     * ValidatorError} list.
+     *
+     * @param errors elements of type {@link ValidatorError}
+     * @return a {@link List} of elements of type {@link
+     * ValidatorError}
+     */
+    public static List<ValidatorError> errors(final ValidatorError... errors) {
+        return Arrays.asList(errors);
     }
 
     /**

@@ -3,9 +3,9 @@ package helios.samples.validator;
 import static org.junit.Assert.assertEquals;
 
 import static helios.ValidatorError.error;
+import static helios.ValidatorError.errors;
 
 import java.util.List;
-import java.util.Arrays;
 import org.junit.Test;
 
 import helios.Helios;
@@ -24,7 +24,7 @@ public class MethodReferenceTest {
 
     List<ValidatorError> doStuff(String something) {
         return something.startsWith("h") ?
-            Arrays.asList() :
-            Arrays.asList(error(something, "not.startswith.h"));
+            errors() :
+            errors(error(something, "not.startswith.h"));
     }
 }

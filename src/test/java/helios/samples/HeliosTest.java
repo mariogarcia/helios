@@ -6,6 +6,8 @@ import static helios.Validators.min;
 import static helios.Validators.minOfString;
 import static helios.Validators.required;
 import static helios.ValidatorsUtil.validator;
+import static helios.ValidatorError.error;
+import static helios.ValidatorError.errors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -48,8 +50,8 @@ public class HeliosTest {
     public static List<ValidatorError> validateOnTheFly(final Loan loanToValidate) {
         Validator<String> custom = (String st) -> {
             return !st.equals("Helios") ?
-                Arrays.asList(ValidatorError.error(st, "is.not.helios")) :
-                Arrays.asList();
+                errors(error(st, "is.not.helios")) :
+                errors();
         };
 
         return validate("loan.name", loanToValidate.name, required(), custom);
