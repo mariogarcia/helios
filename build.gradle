@@ -7,6 +7,10 @@ apply plugin: 'jacoco'
 group = releaseGroup
 version = releaseVersion
 
+configurations {
+    asciidoclet
+}
+
 repositories {
     jcenter()
 }
@@ -14,5 +18,17 @@ repositories {
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
 
+    asciidoclet 'org.asciidoctor:asciidoclet:1.+'
     testCompile 'com.nagternal:spock-genesis:0.4.0'
+}
+
+javadoc {
+    options.docletpath = configurations.asciidoclet.files.asType(List)
+    options.doclet = 'org.asciidoctor.Asciidoclet'
+    //    options.overview = "src/main/java/overview.adoc"
+    options.addStringOption "-base-dir", "${projectDir}"
+    options.addStringOption "-attribute",
+            "name=${project.name}," +
+            "version=${project.version}," +
+            "title-link=http://example.com[${project.name} ${project.version}]"
 }

@@ -25,6 +25,12 @@ public class Validators {
     /**
      * Checks that a given value is present (is not null).
      *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/RequiredTest.java[]
+     * ----
+     *
      * @return a {@link Validator} to make sure a given value is
      * present
      * @since 0.1.0
@@ -37,7 +43,13 @@ public class Validators {
      * Checks that a given {@link Number} is less than the number
      * passed as parameter.
      *
-     * @param number to check against
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/MinNumberTest.java[]
+     * ----
+     *
+     * @param min to check against
      * @return a {@link Validator} instance
      * @since 0.1.0
      */
@@ -49,7 +61,13 @@ public class Validators {
      * Checks that a given {@link List} has a minimum number of
      * elements
      *
-     * @param n min number of elements the list should have
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/MinOfListTest.java[]
+     * ----
+     *
+     * @param min minimum number of elements the list should have
      * @return a {@link Validator}
      * @since 0.1.0
      */
@@ -61,7 +79,13 @@ public class Validators {
      * Checks that a given {@link String} has at least a given number
      * of characters.
      *
-     * @param n min number of characters that the string should have
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/MinOfStringTest.java[]
+     * ----
+     *
+     * @param min minimum number of characters that the string should have
      * @return a {@link Validator}
      * @since 0.1.0
      */
