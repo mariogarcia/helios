@@ -1,6 +1,8 @@
 package helios;
 
+import static helios.ValidatorsUtil.d;
 import static helios.ValidatorsUtil.safe;
+import static helios.ValidatorsUtil.validator;
 import static helios.ValidatorsUtil.unsafe;
 import static helios.ValidatorsUtil.safeCurry;
 import static helios.ValidatorError.error;
@@ -39,11 +41,8 @@ public class Validators {
      * @return a {@link Validator} instance
      * @since 0.1.0
      */
-    public static <T extends Number> Validator<T> min(final T number) {
-        final BiPredicate<T,T> pred = (x,y) -> x.doubleValue() > y.doubleValue();
-        final Predicate<T> safePred = safeCurry(number, pred);
-
-        return (T opt) -> safe(opt, safePred, error(opt, "min.notmet"));
+    public static <T extends Number> Validator<T> min(final T min) {
+        return validator(min, (ref,y) -> d(y) < d(ref), "min.notmet");
     }
 
     /**
@@ -54,8 +53,8 @@ public class Validators {
      * @return a {@link Validator}
      * @since 0.1.0
      */
-    public static Validator<List<?>> minOfList(final int n) {
-        return (List<?> list) -> safe(list, x -> x.size() < n, error(list, "list.min.notmet"));
+    public static Validator<List<?>> minOfList(final int min) {
+        return validator(min, (ref, l) -> l.size() < ref, "list.min.notmet");
     }
 
     /**
@@ -66,7 +65,7 @@ public class Validators {
      * @return a {@link Validator}
      * @since 0.1.0
      */
-    public static Validator<String> minOfString(final int n) {
-        return (String opt) -> safe(opt, x -> x.length() < n, error(opt, "string.min.notmet"));
+    public static Validator<String> minOfString(final int min) {
+        return validator(min, (ref, st) -> st.length() < ref, "string.min.notmet");
     }
 }

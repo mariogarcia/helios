@@ -2,6 +2,7 @@ package helios;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static helios.ValidatorError.error;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,35 @@ import java.util.function.BiPredicate;
 public class ValidatorsUtil {
 
     private ValidatorsUtil() { }
+
+    /**
+     * Shortcut to get the double value from a given {@link
+     * Number}. It's normally used in formulas to avoid unecessary
+     * verbosity.
+     *
+     * @param n the number to convert to double
+     * @return the double value of the number passed as argument
+     */
+    public static double d(final Number n) {
+        return n.doubleValue();
+    }
+
+    /**
+     * Creates a new {@link Validator} from a given reference value
+     * and a formula expression given as a {@link BiPredicate}.
+     *
+     * @param ref the reference value the checked value will be
+     * validated against
+     * @param pred the validation expression it is a {@link
+     * BiPredicate} meaning it's receiving as the left hand side
+     * operand the reference and in the right hand side the value to
+     * validate
+     * @return a {@link Validator}
+     * @since 0.1.0
+     */
+    public static <T,S> Validator<S> validator(final T ref, final BiPredicate<T,S> pred, final String errorKey) {
+        return (S val) -> safe(val, safeCurry(ref, pred), error(val, errorKey));
+    }
 
     /**
      * Executes safely a given {@link Predicate} with a possible null
