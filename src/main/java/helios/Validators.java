@@ -14,7 +14,15 @@ import java.util.function.Predicate;
 import java.util.function.BiPredicate;
 
 /**
- * All validators implemented in Helios can be found here
+ * All basic validators implemented in Helios can be found
+ * here. Validators normally are used in {@link Helios#validate}
+ * methods.
+ *
+ * [source, java]
+ * .Example usage
+ * ----
+ * include::src/test/java/helios/samples/validators/ValidatorsTest.java[]
+ * ----
  *
  * @since 0.1.0
  */
