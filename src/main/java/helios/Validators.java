@@ -43,7 +43,7 @@ public class Validators {
      * @since 0.1.0
      */
     public static <T> Validator<T> required() {
-        return (T opt) -> unsafe(opt, x -> x != null, error(opt, "required"));
+        return (T opt) -> unsafe(opt, ValidatorsUtil::isNotNull, error(opt, "required"));
     }
 
     /**
