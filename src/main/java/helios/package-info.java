@@ -8,11 +8,12 @@
  * restrictions over the same object in different parts of the
  * application.
  *
- * Principal ideas in `Helios` development are:
+ * `Helios` is based on the following ideas:
  *
  * - API simplicity
  * - Footprint
  * - Validator reusability
+ * - Functional programming
  * - Documentation
  *
  * @since 0.1.0

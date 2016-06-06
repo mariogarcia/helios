@@ -23,7 +23,7 @@ public class ValidatorsUtilTest {
 
     // tag::validatorCreation[]
     public Validator<String> customValidator() {
-        BiPredicate<String,String> equalsX = (x,y) -> !x.equals(y);
+        BiPredicate<String,String> equalsX = (x,y) -> x.equals(y);
 
         return ValidatorsUtil.validator("x", equalsX, "isnot.x");
     }

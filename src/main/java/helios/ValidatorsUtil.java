@@ -1,11 +1,13 @@
 package helios;
 
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
+import static java.util.stream.Collectors.toList;
+
 import static helios.ValidatorError.error;
+import static helios.ValidatorError.errors;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.Predicate;
@@ -68,8 +70,8 @@ public class ValidatorsUtil {
         return Optional
             .ofNullable(value)
             .filter(cond)
-            .map(next -> asList(error))
-            .orElse(emptyList());
+            .map(next -> errors())
+            .orElse(errors(error));
     }
 
     /**
@@ -87,7 +89,7 @@ public class ValidatorsUtil {
      * @since 0.1.0
      */
     public static <T> List<ValidatorError> unsafe(T value, Predicate<T> cond, ValidatorError error) {
-        return cond.test(value) ? asList(error) : emptyList();
+        return cond.test(value) ? errors() : errors(error);
     }
 
     /**
@@ -112,5 +114,25 @@ public class ValidatorsUtil {
             .ofNullable(param)
             .map(getSafePred)
             .orElseGet(getDefaultPred);
+    }
+
+    /**
+     * Composes a variable number of {@link Validator} instances in a
+     * single validator.
+     *
+     * @param validators a variable number of validators to be composed
+     * @return a {@link Validator} that combines all of them
+     * @since 0.1.0
+     */
+    public static <A> Validator<A> compose(final Validator<A>... validators) {
+        return new Validator<A>() {
+            public List<ValidatorError> validate(final A subject) {
+                return Stream.of(validators)
+                    .filter(v -> v != null)
+                    .map(v -> v.validate(subject))
+                    .flatMap(List::stream)
+                    .collect(toList());
+            }
+        };
     }
 }
