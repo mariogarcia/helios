@@ -9,18 +9,35 @@ import java.util.ArrayList;
  * == Overview
  *
  * `Validator` is a {@link FunctionalInterface} with a single method
- * {@link Validator#validate}. The good think about functional
- * interfaces is that you can implement them with lambda expressions
- * or use method references that comply with the interface method.
+ * {@link Validator#validate}.  A {@link Validator} can be implemented
+ * with a class **implementing {@link Validator}**, using a **lambda
+ * expression**, a **method reference**, or making use of **{@link
+ * ValidatorsUtil#validator}**.
+ *
+ * Rules when implementing a {@link Validator}
+ *
+ * - The {@link Validator#validate} method should be defined in positive form.
+ * - A given {@link Validator#validate} method returns a list of zero,
+ * one or more {@link ValidatorError} instances.
  *
  * == Lambda expression
+ *
+ * The following validator uses a lambda expression that matches
+ * {@link Validator#validate} method:
  *
  * [source, java]
  * ----
  * include::src/test/java/helios/samples/validator/LambdaTest.java[tags=testLambda, indent=0]
  * ----
  *
+ * NOTE: Notice it has been defined in positive form, `if` is valid =>
+ * no errors `else` => errors
+ *
  * == Method reference
+ *
+ * The same way a lambda expression can be used as a validator when it
+ * matches the {@link Validator#validate} method, so does a `method
+ * reference`.
  *
  * [source, java]
  * ----

@@ -20,13 +20,10 @@ import java.util.function.BiPredicate;
  * here. Validators normally are used in {@link Helios#validate}
  * methods.
  *
- * [source, java]
- * .Example usage
- * ----
- * include::src/test/java/helios/samples/validators/ValidatorsTest.java[]
- * ----
+ * NOTE: Check {@link Helios} to see how to use validators
  *
  * @since 0.1.0
+ * @see Helios#validate
  */
 public class Validators {
 

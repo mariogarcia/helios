@@ -16,14 +16,13 @@ public class LambdaTest {
     @Test public void testLambda() {
         // tag::testLambda[]
         Validator<String> validator = (String s) -> {
-            if (s.equals("x")) {
-                return errors(error(s, "not.x"));
-            }
-            return errors();
+            return s.equals("x") ?
+                errors() :
+                errors(error(s, "not.x"));
         };
         // end::testLambda[]
 
-        List<ValidatorError> errors = validator.validate("x");
+        List<ValidatorError> errors = validator.validate("k");
         assertEquals(errors.size() , 1);
         assertEquals(errors.get(0).key, "not.x");
     }
