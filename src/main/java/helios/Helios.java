@@ -16,8 +16,8 @@ import java.util.function.Supplier;
  *
  * == Overview
  *
- * `Helios` tries to be as little as possible. The only way to
- * validate a given value is using any of the `validate`
+ * `Helios` tries to be as simple as possible. There is only one way
+ * to validate a given value, using any of the `validate`
  * methods. These methods vary only in the way validators are
  * provided.
  *
@@ -108,7 +108,7 @@ public class Helios {
      * include::src/test/java/helios/samples/HeliosTest.java[tags=validateBeforeUpdate]
      * ----
      * <1> List of {@link Validator} compatible with a value of type {@link Long}
-     * <2> Apply that list to id (which is a value of type {@link Long}
+     * <2> Apply that list to id (which is a value of type {@link Long})
      *
      * @param id the alias to identify the value to validate
      * @param subject the object to validate

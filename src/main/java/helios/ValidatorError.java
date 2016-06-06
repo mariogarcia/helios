@@ -1,6 +1,7 @@
 package helios;
 
-import static helios.Constants.BLANK;
+import static helios.ValidatorsUtil.BLANK;
+import static helios.ValidatorsUtil.POINT;
 
 import java.util.List;
 import java.util.Arrays;
@@ -67,9 +68,9 @@ public class ValidatorError {
     public ValidatorError copyWithProperty(final String newProperty) {
         String path = Arrays.asList(newProperty, property)
             .stream()
-            .filter(Constants::FN_IS_NOT_NULL)
-            .filter(Constants::FN_IS_NOT_BLANK)
-            .collect(Collectors.joining(Constants.POINT));
+            .filter(ValidatorsUtil::isNotNull)
+            .filter(ValidatorsUtil::isNotBlank)
+            .collect(Collectors.joining(POINT));
 
         return new ValidatorError(value, path, key);
     }

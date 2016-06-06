@@ -24,6 +24,49 @@ public class ValidatorsUtil {
     private ValidatorsUtil() { }
 
     /**
+     * Blank space
+     *
+     * @since 0.1.0
+     */
+    public static final String BLANK = "";
+
+    /**
+     * Point character
+     *
+     * @since 0.1.0
+     */
+    public static final String POINT = ".";
+
+    /**
+     * Checks if a given value is not null.
+     *
+     * @param subject the object to check
+     * @return true if the subject is not null false otherwise
+     * @since 0.1.0
+     */
+    public static final <T> Boolean isNotNull(T subject) {
+        return Optional
+            .ofNullable(subject)
+            .isPresent();
+    }
+
+    /**
+     * Checks if a given value is not a blank character ""
+     *
+     * @param subject the value to check
+     * @return true if the subject is not blank false otherwise
+     * @since 0.1.0
+     */
+    public static final <T> Boolean isNotBlank(T subject) {
+        return Optional
+            .ofNullable(subject)
+            .map(Object::toString)
+            .map(String::isEmpty)
+            .map(isEmpty -> !isEmpty)
+            .orElse(false);
+    }
+
+    /**
      * Shortcut to get the double value from a given {@link
      * Number}. It's normally used in formulas to avoid unecessary
      * verbosity.
@@ -31,7 +74,7 @@ public class ValidatorsUtil {
      * @param n the number to convert to double
      * @return the double value of the number passed as argument
      */
-    public static double d(final Number n) {
+    public static final double d(final Number n) {
         return n.doubleValue();
     }
 
@@ -48,7 +91,7 @@ public class ValidatorsUtil {
      * @return a {@link Validator}
      * @since 0.1.0
      */
-    public static <T,S> Validator<S> validator(final T ref, final BiPredicate<T,S> pred, final String errorKey) {
+    public static final <T,S> Validator<S> validator(final T ref, final BiPredicate<T,S> pred, final String errorKey) {
         return (S val) -> safe(val, safeCurry(ref, pred), error(val, errorKey));
     }
 
@@ -66,7 +109,7 @@ public class ValidatorsUtil {
      * @return a list of {@link ValidatorError} elements.
      * @since 0.1.0
      */
-    public static <T> List<ValidatorError> safe(T value, Predicate<T> cond, ValidatorError error) {
+    public static final <T> List<ValidatorError> safe(T value, Predicate<T> cond, ValidatorError error) {
         return Optional
             .ofNullable(value)
             .filter(cond)
@@ -88,7 +131,7 @@ public class ValidatorsUtil {
      * @return a list of {@link ValidatorError} elements.
      * @since 0.1.0
      */
-    public static <T> List<ValidatorError> unsafe(T value, Predicate<T> cond, ValidatorError error) {
+    public static final <T> List<ValidatorError> unsafe(T value, Predicate<T> cond, ValidatorError error) {
         return cond.test(value) ? errors() : errors(error);
     }
 
@@ -106,7 +149,7 @@ public class ValidatorsUtil {
      * @return an instance of {@link Predicate}.
      * @since 0.1.0
      */
-    public static <A,B> Predicate<B> safeCurry(final A param, final BiPredicate<A,B> source) {
+    public static final <A,B> Predicate<B> safeCurry(final A param, final BiPredicate<A,B> source) {
         Function<A, Predicate<B>> getSafePred = (A a) -> (B b) -> source.test(a,b);
         Supplier<Predicate<B>> getDefaultPred = () -> (B b) -> false;
 
@@ -124,7 +167,7 @@ public class ValidatorsUtil {
      * @return a {@link Validator} that combines all of them
      * @since 0.1.0
      */
-    public static <A> Validator<A> compose(final Validator<A>... validators) {
+    public static final <A> Validator<A> compose(final Validator<A>... validators) {
         return new Validator<A>() {
             public List<ValidatorError> validate(final A subject) {
                 return Stream.of(validators)
