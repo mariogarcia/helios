@@ -1,3 +1,20 @@
 == Development
 
-- Javadoc can be found link:javadoc/index.html[here].
+=== Dependencies
+
+|===
+|Library |Description |Scope
+
+|org.slf4j:slf4j-api:1.7.21
+|serves as a simple facade or abstraction for various logging frameworks
+|compile
+
+|com.nagternal:spock-genesis:0.4.0
+|Spock Genesis provides a variety of classes that produce generators
+|testCompile
+|===
+
+=== Github and Javadoc
+
+- Github: https://github.com/mariogarcia/helios
+- Javadoc: can be found link:javadoc/index.html[here].
