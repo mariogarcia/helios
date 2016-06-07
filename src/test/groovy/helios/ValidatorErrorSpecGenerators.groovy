@@ -12,7 +12,10 @@ class ValidatorErrorSpecGenerators {
         def error = [
             value: Gen.any(1L, null, "", 23, new Date(), new File("/tmp")),
             property: Gen.any(null, 'amount', null, 'date'),
-            key: Gen.any('error.required', 'error.custom')] as Map<String,?>
+            key: Gen.any('required', 'custom'),
+
+            keyI18n: Gen.any('error.required', 'error.custom')
+        ] as Map<String,?>
 
         return Gen.map(error)
     }

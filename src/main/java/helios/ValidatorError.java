@@ -5,6 +5,7 @@ import static helios.ValidatorsUtil.POINT;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +31,13 @@ public class ValidatorError {
     public final String key;
 
     /**
+     * The key that represents the error for the current property.
+     *
+     * @since 0.1.0
+     */
+    public final String keyI18n;
+
+    /**
      * The name of the property (if any) that was validated and raised
      * the error
      *
@@ -42,12 +50,17 @@ public class ValidatorError {
      * @param property the property the validator was validating (if
      * any)
      * @param key the key error. It can be used to translate the error
+     * @param keyI18n the key error aware of the current property path
      * @since 0.1.0
      */
-    public ValidatorError(final Object value, final String property, final String key) {
+    public ValidatorError(final Object value,
+                          final String property,
+                          final String key,
+                          final String keyI18n) {
         this.value = value;
         this.property = property;
         this.key = key;
+        this.keyI18n = keyI18n;
     }
 
     /**
@@ -66,13 +79,18 @@ public class ValidatorError {
      * @since 0.1.0
      */
     public ValidatorError copyWithProperty(final String newProperty) {
-        String path = Arrays.asList(newProperty, property)
+        String prop = Optional
+            .ofNullable(property)
+            .filter(ValidatorsUtil::isNotBlank)
+            .orElse(newProperty);
+
+        String path = Arrays.asList(newProperty, property,key)
             .stream()
             .filter(ValidatorsUtil::isNotNull)
             .filter(ValidatorsUtil::isNotBlank)
             .collect(Collectors.joining(POINT));
 
-        return new ValidatorError(value, path, key);
+        return new ValidatorError(value, prop, key, path);
     }
 
     /**
@@ -85,7 +103,7 @@ public class ValidatorError {
      * @since 0.1.0
      */
     public static ValidatorError error(final Object value, final String errorKey) {
-        return new ValidatorError(value, BLANK, errorKey);
+        return new ValidatorError(value, BLANK, errorKey, BLANK);
     }
 
     /**
@@ -112,6 +130,8 @@ public class ValidatorError {
             .append(property)
             .append(",")
             .append(key)
+            .append(",")
+            .append(keyI18n)
             .append(")")
             .toString();
     }

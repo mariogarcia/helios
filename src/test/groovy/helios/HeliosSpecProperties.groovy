@@ -17,7 +17,7 @@ class HeliosSpecProperties {
         if (!result.isEmpty()) {
             assert result.any { ValidatorError error ->
                 error.key in ['required', 'min.notmet', 'string.min.notmet'] &&
-                error.property.startsWith('loan.')
+                error.keyI18n.startsWith('loan.')
             }
         }
     }
@@ -25,7 +25,7 @@ class HeliosSpecProperties {
     static void checkErrorPropertyField(final List<ValidatorError> result) {
         if (!result.isEmpty()) {
             assert result.any { ValidatorError error ->
-                error.property in ["loan.amount", "loan"]
+                error.property in ["amount", "loan"]
             }
         }
     }
