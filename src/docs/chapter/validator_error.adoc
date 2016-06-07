@@ -1,1 +1,22 @@
 == ValidatorError
+
+**link:javadoc/helios/ValidatorError.html[javadoc]**
+
+If any validator fails it will return a list of
+`helios.ValidatorError` instances. When a validator is created it
+could have the following information:
+
+- `property`: the validated property
+- `key`: the error identificator
+- `keyI18n`: it's a combination of "$property.$key". It contains a
+  unique identifier that can be used to translate the error.
+
+You can create a new `ValidatorError` either by calling its
+constructor directly or using the method
+`ValidatorError#error`. Although this method was first created to be
+used internally, it was pretty clear that it could be very useful to
+developers when creating custom validators.
+
+IMPORTANT: All instances of `ValidatorError` are efectively
+immutable. All its fields are final and initialized in constructor. It
+could be considered thread-safe friendly.

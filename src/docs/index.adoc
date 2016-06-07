@@ -7,6 +7,7 @@
 
 :sourceDir: {baseDir}/src/main/java
 :testDir: {baseDir}/src/test/java
+:spockDir: {baseDir}/src/test/groovy
 
 "Helios was the personification of the Sun in Greek mythology. He is
 the son of the Titan Hyperion and the Titaness Theia (according to

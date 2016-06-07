@@ -13,15 +13,52 @@ there're plenty of other ways of creating your own validators.
 
 Although you can create you own validators, `Helios` comes with a
 basic set of validators for numbers, strings, and lists. Please
-checkout the link:javadoc/index.html[javadoc] to see them all.
+checkout the link:javadoc/helios/Validators.html[javadoc] to see them
+all.
 
 === Create your own
 
 ==== Validator
 
+Of course you can implement `helios.Validator` to create a new
+validator type.
+
+[source, java]
+----
+include::{testDir}/helios/samples/asciidoc/validators/StartsWithJ.java[]
+----
+
+<1> Static methods will serve to produce `ValidatorError` instances easily
+<2> Implementing `helios.Validator`
+<3> Creating errors if its needed with a given error key and the value
+that produced the error
+
 ==== Lambda
 
+Because `helios.Validator` is a functional interface you can create
+new instances out of lambda expressions.
+
+[source, java]
+----
+include::{testDir}/helios/samples/asciidoc/validators/LambdaValidator.java[]
+----
+
+<1> From a given boolean expression we could make use of the
+`ValidatorError` `errors` and `error` methods to return a list of
+`ValidatorError` instances
+<2> You can also use `Helios#validate` if you would like to reuse
+pre-existent built-in validators or you may want to nest validators
+
 ==== Method Reference
+
+If you had a method that complies with the `helios.Validator`
+contract, you could use it in any method where a `Validator` is passed
+as parameter.
+
+[source, java]
+----
+include::{testDir}/helios/samples/asciidoc/validators/MethodReference.java[]
+----
 
 ==== Compose
 
@@ -34,3 +71,19 @@ in `Helios` built-in validators:
 ----
 include::{sourceDir}/helios/Validators.java[tags=inRangeOfString]
 ----
+
+==== As Predicate
+
+At some point you may realize a validator or a set of validators could
+be used as a `java.util.function.Predicate`. A good example could be
+to filter out a list of words:
+
+[source, java]
+----
+include::{testDir}/helios/samples/asciidoc/validators/AsPredicate.java[]
+----
+
+<1> A list of words we want to filter
+<2> Invoking a function receiving a `Validator` as parameter
+<3> Invoking `Validator#toPredicate` to convert a `Validator` to
+`Predicate` and use it to filter out a stream of words

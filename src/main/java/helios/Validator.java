@@ -3,6 +3,8 @@ package helios;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.util.function.Predicate;
+
 /**
  * Base abstraction to implement validators.
  *
@@ -70,4 +72,8 @@ public interface Validator<T> {
      * @since 0.1.0
      */
     List<ValidatorError> validate(T subject);
+
+    default Predicate<T> toPredicate() {
+        return (T subject) -> Helios.validate("predicate", subject, this).size() == 0;
+    }
 }

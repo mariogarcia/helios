@@ -11,13 +11,6 @@ compile 'com.github.mariogarcia:helios:0.1.0'
 
 === Simple property
 
-First sample is to validate a simple property isolated.
-
-[source, java]
-----
-include::{testDir}/helios/samples/IntroTest.java[]
-----
-
 When validating anything with `Helios` you would be using the
 `helios.Helios#validate` method. The `validate` method is overloaded
 to be able to receive validators as a variable arguments or as a list,
@@ -28,31 +21,58 @@ parameters are:
 - The value to validate
 - A variable number of validators
 
+The following example shows how to validate a simple property
+isolated.
+
+[source, java]
+----
+include::{testDir}/helios/samples/asciidoc/SimpleProperty.java[]
+----
+
+<1> `Helios.validate` call. Also the first parameter is the identifier
+of the validated property.
+<2> The value to validate.
+<3> Varargs of built-in validators.
+
+If you pass an invalid number to the `validateName` method the
+validation will return a list of `helios.ValidatorError`. Every
+`ValidatorError` instance is immutable, so you can access to its
+`property`, `key` and `keyI18n` values directly, no getters needed.
+
 In the example we're using some built-int `Helios`
 validators. `Helios` has a little set of built-in validators you can
 find in the class `helios.ValidatorsUtil` class.
 
 === Grouping
 
-One way of reusing validators is to add them all to a list and use the
+One way of reusing validators is to group them in a list and use the
 `helios.Helios.validate` method that permits a list of validators:
 
 [source, java]
 ----
-include::{testDir}/helios/samples/IntroGroupingTest.java[tags=testProduct]
+include::{testDir}/helios/samples/asciidoc/Grouping.java[]
 ----
-
-<1> Declaring different objects
-<2> Creating a group of validators to validate all people names
-<3> Reusing validator group for both objects
 
 === Nested
 
 In a real application we'll be probably be validating a full object,
-not only single properties, this is addressed in `Helios` by nesting
-validators:
+not only single properties, this can be addressed in `Helios` by nesting
+calls to `Helios#validate` inside lambda expressions.
 
 [source, java]
 ----
-include::{testDir}/helios/samples/IntroNestTest.java[tags=testProduct]
+include::{testDir}/helios/samples/asciidoc/Nested.java[tags=nested]
 ----
+
+<1> Validator to check "desc" property
+<2> Validator to check "items" property
+<3> Validator to check "amount" property
+
+These validators are just lambda expressions that comply with the
+`helios.Validator` interface. They receive a given value of the
+required type and thanks to invoking `validate` they return a list of
+`ValidatorError` which is the expected outcome for a `Validator`.
+
+NOTE: The `validateProduct` method itself could be considered as a
+validator of type `Validator<Product>` because it receives a `Product`
+and returns a list of `ValidatorError`.

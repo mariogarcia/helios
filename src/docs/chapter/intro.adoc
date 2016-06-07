@@ -1,6 +1,6 @@
 == Intro
 
-`Helios` is a micro validation framework that focuses on:
+`Helios` is a micro validation library that focuses on:
 
 - API simplicity
 - Small footprint
