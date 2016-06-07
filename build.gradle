@@ -1,8 +1,21 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.ajoberstar:gradle-git:1.4.2'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+    }
+}
+
 apply plugin: 'pmd'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'groovy'
 apply plugin: 'jacoco'
+apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'org.ajoberstar.github-pages'
 
 group = releaseGroup
 version = releaseVersion
@@ -25,10 +38,38 @@ dependencies {
 javadoc {
     options.docletpath = configurations.asciidoclet.files.asType(List)
     options.doclet = 'org.asciidoctor.Asciidoclet'
-    //    options.overview = "src/main/java/overview.adoc"
     options.addStringOption "-base-dir", "${projectDir}"
     options.addStringOption "-attribute",
             "name=${project.name}," +
-            "version=${project.version}," +
-            "title-link=http://example.com[${project.name} ${project.version}]"
+            "version=${releaseVersion}"
+}
+
+asciidoctor {
+    sourceDir 'src/docs'
+    attributes 'source-highlighter': 'prettify',
+               toc                 : 'left',
+               icons               : 'font',
+               toclevels           : 3,
+               'pdf-style'         : 'default',
+               'releaseVersion'    : releaseVersion
+}
+
+task allDocs(type:Copy, dependsOn: [javadoc, asciidoctor]) {
+    from "$buildDir/docs/"
+    into "$buildDir/asciidoc/html5/"
+}
+
+githubPages {
+    repoUri = 'https://github.com/mariogarcia/helios.git'
+    deleteExistingFiles = true
+
+    pages {
+        from file('build/asciidoc/html5')
+    }
+
+    //https://github.com/ajoberstar/gradle-git/wiki/Travis-CI-Authentication
+    credentials {
+        username = System.getenv('GH_TOKEN')
+        password = ''
+    }
 }

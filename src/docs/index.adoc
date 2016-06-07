@@ -1,0 +1,25 @@
+= Helios
+:revnumber: {releaseVersion}
+:numbered:
+:imagesDir: images/
+:baseDir: ../../..
+:stem:
+
+:sourceDir: {baseDir}/src/main/java
+:testDir: {baseDir}/src/test/java
+
+"Helios was the personification of the Sun in Greek mythology. He is
+the son of the Titan Hyperion and the Titaness Theia (according to
+Hesiod), also known as Euryphaessa (in Homeric Hymn 31) and brother of
+the goddesses Selene, the moon, and Eos, the dawn" --
+https://en.wikipedia.org/wiki/Helios
+
+include::chapter/intro.adoc[]
+
+include::chapter/usage.adoc[]
+
+include::chapter/validators.adoc[]
+
+include::chapter/validator_error.adoc[]
+
+include::chapter/development.adoc[]

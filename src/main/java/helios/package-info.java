@@ -23,7 +23,7 @@
  * - Small footprint
  * - Validator reusability
  * - Embrace `functional programming`
- * - Documentation friendly
+ * - Documentation
  *
  * @since 0.1.0
  */

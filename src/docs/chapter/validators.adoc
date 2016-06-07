@@ -1,0 +1,36 @@
+== Validators
+
+All validators are based on `helios.Validator` interface. This
+interface is a `functional interface` and has one single method
+`validate` that receives a given value and may return a list of zero
+or more errors.
+
+Because `Helios` try to keep its size to the minimum, there're only a
+set of basic built-in validators coming with the library. However
+there're plenty of other ways of creating your own validators.
+
+=== Built-in
+
+Although you can create you own validators, `Helios` comes with a
+basic set of validators for numbers, strings, and lists. Please
+checkout the link:javadoc/index.html[javadoc] to see them all.
+
+=== Create your own
+
+==== Validator
+
+==== Lambda
+
+==== Method Reference
+
+==== Compose
+
+Apart from grouping validators in lists, you can also create a
+validator out of any pre-existent validators with the method
+`helios.ValidatorsUtil.compose`. In fact this method is already used
+in `Helios` built-in validators:
+
+[source, java]
+----
+include::{sourceDir}/helios/Validators.java[tags=inRangeOfString]
+----

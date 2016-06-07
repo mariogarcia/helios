@@ -1,0 +1,58 @@
+== Usage
+
+=== Dependency
+
+If you're using Gradle:
+
+[source, groovy]
+----
+compile 'com.github.mariogarcia:helios:0.1.0'
+----
+
+=== Simple property
+
+First sample is to validate a simple property isolated.
+
+[source, java]
+----
+include::{testDir}/helios/samples/IntroTest.java[]
+----
+
+When validating anything with `Helios` you would be using the
+`helios.Helios#validate` method. The `validate` method is overloaded
+to be able to receive validators as a variable arguments or as a list,
+we'll see later on when to use one or another. The `validate` method
+parameters are:
+
+- A string identifying the property validated
+- The value to validate
+- A variable number of validators
+
+In the example we're using some built-int `Helios`
+validators. `Helios` has a little set of built-in validators you can
+find in the class `helios.ValidatorsUtil` class.
+
+=== Grouping
+
+One way of reusing validators is to add them all to a list and use the
+`helios.Helios.validate` method that permits a list of validators:
+
+[source, java]
+----
+include::{testDir}/helios/samples/IntroGroupingTest.java[tags=testProduct]
+----
+
+<1> Declaring different objects
+<2> Creating a group of validators to validate all people names
+<3> Reusing validator group for both objects
+
+=== Nested
+
+In a real application we'll be probably be validating a full object,
+not only single properties, this is addressed in `Helios` by nesting
+validators:
+
+[source, java]
+----
+include::{testDir}/helios/samples/IntroNestTest.java[tags=testProduct]
+----

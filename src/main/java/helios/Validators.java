@@ -189,9 +189,11 @@ public class Validators {
      * @return a {@link Validator}
      * @since 0.1.0
      */
+    // tag::inRangeOfString[]
     public static Validator<String> inRangeOfString(int min, int max) {
         return compose(minOfString(min), maxOfString(max));
     }
+    // end::inRangeOfString[]
 
     /**
      * Checks that a given {@link Number} is less than the number
