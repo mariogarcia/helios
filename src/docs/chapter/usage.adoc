@@ -6,6 +6,12 @@ If you're using Gradle:
 
 [source, groovy]
 ----
+repositories {
+    maven {
+        url  "http://dl.bintray.com/mariogarcia/maven"
+    }
+}
+
 compile 'com.github.mariogarcia:helios:0.1.0'
 ----
 
