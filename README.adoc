@@ -1,0 +1,34 @@
+== Helios
+
+`Helios` is a micro validation library that focuses on:
+
+- API simplicity
+- Small footprint
+- Validator reusability
+- Embrace `functional programming`
+- Documentation
+
+Many Java validation libraries out there are based on
+annotations. Annotations are ok, but then validation depends on having
+your data model polluted with them. Moreover, sometimes you may want
+to have different validation restrictions on the same type of object
+in different parts of the application.
+
+=== Gradle
+
+[source, groovy, indent=0]
+.build.gradle
+----
+repositories {
+    maven {
+        url  "http://dl.bintray.com/mariogarcia/maven"
+    }
+}
+
+compile 'com.github.mariogarcia:helios:0.1.0'
+----
+
+=== Documentation
+
+- https://mariogarcia.github.io/helios[`Helios` guide]
+- https://mariogarcia.github.io/helios/javadoc/index.html[Javadoc].

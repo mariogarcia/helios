@@ -29,7 +29,7 @@ import java.util.function.Supplier;
  *
  * [source, java]
  * ----
- * include::src/test/java/helios/samples/HeliosTest.java[tags=usevarargs]
+ * include::src/test/java/helios/samples/helios/HeliosVarargsTest.java[tags=test]
  * ----
  *
  * - `validate(String, T, List&lt;Validator&lt;T&gt;&gt;)`: provides
@@ -38,27 +38,10 @@ import java.util.function.Supplier;
  *
  * [source, java]
  * ----
- * include::src/test/java/helios/samples/HeliosTest.java[tags=uselists]
+ * include::src/test/java/helios/samples/helios/HeliosListTest.java[tags=test]
  * ----
- *
- * == Lambda expressions
- *
- * Because {@link Validator} is just a {@link FunctionalInterface} you
- * can create a validator with a lambda expression. The lambda
- * expression should return a list of {@link ValidatorError} and
- * receiving the same type of the value you want to validate.
- *
- * [source, java]
- * ----
- * include::src/test/java/helios/samples/HeliosTest.java[tags=uselambda]
- * ----
- *
- * NOTE: We're using {@link ValidatorError#errors} and {@link
- * ValidatorError#error} to create a list of {@link ValidatorError}
- * instances
- *
- * NOTE: Check out how {@link ValidatorsUtil#validator} creates safer
- * validators using plain lambda expressions.
+ * <1> List of validators compatible with a value of type {@link Long}
+ * <2> Apply that list to id (which is a value of type {@link Long})
  *
  * == Nesting validations
  *
@@ -67,7 +50,7 @@ import java.util.function.Supplier;
  *
  * [source, java]
  * ----
- * include::src/test/java/helios/samples/HeliosTest.java[tags=validateBeforeSave]
+ * include::src/test/java/helios/samples/helios/HeliosNestedTest.java[tags=test]
  * ----
  *
  * @since 0.1.0
@@ -83,7 +66,7 @@ public class Helios {
      * [source, java]
      * .Example usage
      * ----
-     * include::src/test/java/helios/samples/HeliosTest.java[tags=validateBeforeSave]
+     * include::src/test/java/helios/samples/helios/HeliosVarargsTest.java[]
      * ----
      *
      * @param id the alias to identify the value to validate
@@ -105,7 +88,7 @@ public class Helios {
      * [source, java]
      * .Example usage
      * ----
-     * include::src/test/java/helios/samples/HeliosTest.java[tags=validateBeforeUpdate]
+     * include::src/test/java/helios/samples/helios/HeliosListTest.java[]
      * ----
      * <1> List of {@link Validator} compatible with a value of type {@link Long}
      * <2> Apply that list to id (which is a value of type {@link Long})

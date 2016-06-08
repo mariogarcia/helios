@@ -73,6 +73,14 @@ public interface Validator<T> {
      */
     List<ValidatorError> validate(T subject);
 
+    /**
+     * Converts a given validator to a {@link Predicate}. This may
+     * come useful for example, when filtering a list of elements
+     * based on some validator rules.
+     *
+     * @return a {@link Predicate} representing the validator rule
+     * @since 0.1.0
+     */
     default Predicate<T> toPredicate() {
         return (T subject) -> Helios.validate("predicate", subject, this).size() == 0;
     }
