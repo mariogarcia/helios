@@ -167,6 +167,7 @@ public class ValidatorsUtil {
      * @return a {@link Validator} that combines all of them
      * @since 0.1.0
      */
+    @SafeVarargs
     public static final <A> Validator<A> compose(final Validator<A>... validators) {
         return new Validator<A>() {
             public List<ValidatorError> validate(final A subject) {
