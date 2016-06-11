@@ -6,9 +6,11 @@ import static helios.ValidatorsUtil.validator;
 import static helios.ValidatorsUtil.unsafe;
 import static helios.ValidatorsUtil.compose;
 import static helios.ValidatorsUtil.safeCurry;
+import static helios.ValidatorsUtil.BLANK;
 import static helios.ValidatorError.error;
 
 import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -249,5 +251,107 @@ public class Validators {
      */
     public static Validator<String> matches(final String pattern) {
         return validator(pattern, Pattern::matches, "matches");
+    }
+
+    /**
+     * Checks that a given {@link String} starts with a given string
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/StartsWithTest.java[]
+     * ----
+     *
+     * @param word the string of characters to match against
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static Validator<String> startsWith(final String word) {
+        return validator(word, (ref, param) -> param.startsWith(ref), "startswith");
+    }
+
+    /**
+     * Checks that a given {@link String} ends with a given string
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/EndsWithTest.java[]
+     * ----
+     *
+     * @param word the string to check against
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static Validator<String> endsWith(final String word) {
+        return validator(word, (ref, param) -> param.endsWith(ref), "endswith");
+    }
+
+    /**
+     * Checks that a given {@link String} is not blank
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/NotBlankTest.java[]
+     * ----
+     *
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static Validator<String> notBlank() {
+        return validator(BLANK, (ref, param) -> !param.trim().equals(ref), "blank");
+    }
+
+    /**
+     * Cheks that a given {@link Date} is after the reference date
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/MinOfDateTest.java[]
+     * ----
+     *
+     * @param ref the reference date
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static Validator<Date> minOfDate(final Date ref) {
+        return validator(ref, (min, val) -> val.after(ref), "date.min");
+    }
+
+    /**
+     * Cheks that a given {@link Date} is before the reference date
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/MaxOfDateTest.java[]
+     * ----
+     *
+     * @param ref the reference date
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static Validator<Date> maxOfDate(final Date ref) {
+        return validator(ref, (min, val) -> val.before(ref), "date.max");
+    }
+
+    /**
+     * Cheks that a given {@link Date} is between the min and max dates
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/InRangeOfDateTest.java[]
+     * ----
+     *
+     * @param min the minimum date
+     * @param max the maximum date
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static Validator<Date> inRangeOfDate(final Date min, final Date max) {
+        return compose(minOfDate(min), maxOfDate(max));
     }
 }
