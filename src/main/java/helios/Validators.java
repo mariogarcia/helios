@@ -9,6 +9,8 @@ import static helios.ValidatorsUtil.safeCurry;
 import static helios.ValidatorsUtil.BLANK;
 import static helios.ValidatorError.error;
 
+import static java.util.Arrays.asList;
+
 import java.util.List;
 import java.util.Date;
 import java.util.Optional;
@@ -353,5 +355,42 @@ public class Validators {
      */
     public static Validator<Date> inRangeOfDate(final Date min, final Date max) {
         return compose(minOfDate(min), maxOfDate(max));
+    }
+
+    /**
+     * Cheks that a given value is contained in the elements passed as
+     * parameter
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/InListVarargsTest.java[]
+     * ----
+     *
+     * @param elements the elements to match against
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    @SafeVarargs
+    public static <T> Validator<T> inList(final T... elements) {
+        return validator(elements, (ref, value) -> asList(ref).contains(value), "inList");
+    }
+
+    /**
+     * Cheks that a given value is contained in the list passed as
+     * parameter
+     *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validators/InListTest.java[]
+     * ----
+     *
+     * @param elements the elements to match against
+     * @return a {@link Validator}
+     * @since 0.1.1
+     */
+    public static <T> Validator<T> inList(final List<T> elements) {
+        return validator(elements, (ref, value) -> ref.contains(value), "inList");
     }
 }
