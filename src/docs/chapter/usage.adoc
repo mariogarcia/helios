@@ -15,6 +15,9 @@ repositories {
 compile 'com.github.mariogarcia:helios:0.1.0'
 ----
 
+IMPORTANT: Replace `0.1.0` with the latest available version, which is
+`{releaseVersion}`
+
 === Simple property
 
 When validating anything with `Helios` you would be using the

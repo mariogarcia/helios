@@ -78,6 +78,12 @@ public interface Validator<T> {
      * come useful for example, when filtering a list of elements
      * based on some validator rules.
      *
+     * [source,java]
+     * .Example usage
+     * ----
+     * include::src/test/java/helios/samples/validator/ToPredicateTest.java[]
+     * ----
+     *
      * @return a {@link Predicate} representing the validator rule
      * @since 0.1.0
      */
