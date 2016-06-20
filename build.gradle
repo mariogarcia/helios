@@ -10,12 +10,14 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
         classpath 'org.ajoberstar:gradle-git:1.4.2'
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.1.9'
     }
 }
 
@@ -25,6 +27,7 @@ apply plugin: 'jacoco'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: "info.solidsoft.pitest"
 apply plugin: 'org.asciidoctor.convert'
 apply plugin: 'org.ajoberstar.github-pages'
 
@@ -69,6 +72,12 @@ dependencies {
 
 group = releaseGroup
 version = releaseVersion
+
+pitest {
+    targetClasses = ['helios.*']
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+}
 
 javadoc {
     options.docletpath = configurations.asciidoclet.files.asType(List)
@@ -143,8 +152,8 @@ publishing {
 
 bintray {
  /* Normally taken from ~/.gradle/gradle.properties */
-    user         = bintrayUser
-    key          = bintrayKey
+    user         = project.properties.bintrayUser
+    key          = project.properties.bintrayKey
     publish      = false
     publications = ['mavenCustom']
     pkg {

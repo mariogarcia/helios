@@ -112,9 +112,13 @@ public class ValidatorsUtil {
     public static final <T> List<ValidatorError> safe(T value, Predicate<T> cond, ValidatorError error) {
         return Optional
             .ofNullable(value)
-            .filter(cond)
-            .map(next -> errors())
-            .orElse(errors(error));
+            .map((T val) -> {
+                    return Optional
+                        .of(val)
+                        .filter(cond)
+                        .map(next -> errors())
+                        .orElse(errors(error));
+                }).orElse(errors());
     }
 
     /**
