@@ -51,8 +51,8 @@ public class Validators {
     }
 
     /**
-     * Checks that a given {@link Number} number should be greater
-     * than the number passed as parameter.
+     * Checks that a given {@link Number} number should be greater or
+     * equals than the number passed as parameter.
      *
      * [source,java]
      * .Example usage
@@ -65,7 +65,7 @@ public class Validators {
      * @since 0.1.0
      */
     public static <T extends Number> Validator<T> min(final T min) {
-        return validator(min, (ref,y) -> d(y) > d(ref), "min.notmet");
+        return validator(min, (ref,y) -> d(y) >= d(ref), "min.notmet");
     }
 
     /**
@@ -85,8 +85,8 @@ public class Validators {
     }
 
     /**
-     * Checks that a given {@link List} size is greater than the
-     * number passed as parameter.
+     * Checks that a given {@link List} size is greater or equals than
+     * the number passed as parameter.
      *
      * [source,java]
      * .Example usage
@@ -99,12 +99,12 @@ public class Validators {
      * @since 0.1.0
      */
     public static Validator<List<?>> minOfList(int min) {
-        return validator(min, (ref, l) -> l.size() > ref, "list.min.notmet");
+        return validator(min, (ref, l) -> l.size() >= ref, "list.min.notmet");
     }
 
     /**
-     * Checks that a given {@link List} size is less than the number
-     * passed as parameter.
+     * Checks that a given {@link List} size is less or equals than
+     * the number passed as parameter.
      *
      * [source,java]
      * .Example usage
@@ -117,7 +117,7 @@ public class Validators {
      * @since 0.1.0
      */
     public static Validator<List<?>> maxOfList(int max) {
-        return validator(max, (ref, l) -> l.size() < ref, "list.max.notmet");
+        return validator(max, (ref, l) -> l.size() <= ref, "list.max.notmet");
     }
 
     /**
@@ -140,8 +140,8 @@ public class Validators {
     }
 
     /**
-     * Checks that a given {@link String} has a minimum number of
-     * characters.
+     * Checks that a given {@link String} length is greater equals a
+     * given number of characters.
      *
      * [source,java]
      * .Example usage
@@ -154,12 +154,12 @@ public class Validators {
      * @since 0.1.0
      */
     public static Validator<String> minOfString(int min) {
-        return validator(min, (ref, st) -> st.length() > ref, "string.min.notmet");
+        return validator(min, (ref, st) -> st.length() >= ref, "string.min.notmet");
     }
 
     /**
-     * Checks that a given {@link String} has a maximum number of
-     * characters.
+     * Checks that a given {@link String} length is less equals a
+     * given number
      *
      * [source,java]
      * .Example usage
@@ -172,7 +172,7 @@ public class Validators {
      * @since 0.1.0
      */
     public static Validator<String> maxOfString(int max) {
-        return validator(max, (ref, st) -> st.length() < ref, "string.max.notmet");
+        return validator(max, (ref, st) -> st.length() <= ref, "string.max.notmet");
     }
 
     /**
@@ -200,8 +200,8 @@ public class Validators {
     // end::inRangeOfString[]
 
     /**
-     * Checks that a given {@link Number} is less than the number
-     * passed as parameter
+     * Checks that a given {@link Number} is less equals than the
+     * number passed as parameter
      *
      * [source,java]
      * .Example usage
@@ -214,12 +214,11 @@ public class Validators {
      * @since 0.1.0
      */
     public static <T extends Number> Validator<T> max(final T max) {
-        return validator(max, (ref,y) -> d(y) < d(ref), "max.notmet");
+        return validator(max, (ref,y) -> d(y) <= d(ref), "max.notmet");
     }
 
     /**
-     * Checks that a given {@link Number} is greater than a given min
-     * and also less than a given max
+     * Checks that a given {@link Number} is within a given boundaries
      *
      * [source,java]
      * .Example usage
@@ -230,8 +229,11 @@ public class Validators {
      * IMPORTANT: `InRange` validator is composed by `min` and `max`
      * validators.
      *
-     * @param max minimum number of characters that the string should have
+     * @param min minimum number of characters that the string should have
+     * @param max maximum number of characters that the string should have
      * @return a {@link Validator}
+     * @see Validators#min
+     * @see Validators#max
      * @since 0.1.0
      */
     public static <T extends Number> Validator<T> inRange(final T min, final T max) {
